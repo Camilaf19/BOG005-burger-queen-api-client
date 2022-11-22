@@ -3,17 +3,17 @@ import './styles.css'
 export function LoginView() {
     return (
         <main className='backgroundLogin' >
-            <section>
-                <img src={require('./img/logo.png')}
+            <section className='logoContainer'>
+                <img className='logo' src={require('./img/logo.png')}
                     alt='Logo Burguer Queen' />
             </section>
-            <section>
-                <form>
+            <section className='formContainer'>
+                <form className='formLogin'>
                     <p className='formP'>Email:</p>
-                    <input type='text' name='email' />
+                    <input className='inputLogin' type='text' name='email' />
                     <p className='formP'>Password:</p>
-                    <input type='password' name='password' />
-                    <button>Sign In</button>
+                    <input className='inputLogin' type='password' name='password' />
+                    <button className='buttonLogin'>Sign In</button>
                 </form>
             </section>
         </main >
