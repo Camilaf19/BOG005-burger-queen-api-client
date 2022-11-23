@@ -4,7 +4,7 @@ export function LoginView() {
     return (
         <main className='backgroundLogin' >
             <section className='logoContainer'>
-                <img className='logo' src={require('./img/logo.png')}
+                <img className='logo' src={require('./img/logo-final-queenburger.png')}
                     alt='Logo Burguer Queen' />
             </section>
             <section className='formContainer'>
