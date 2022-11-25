@@ -1,4 +1,5 @@
 import '../styles.css'
+import {  Link } from "react-router-dom";
 //import { ArrowRightFromArc} from "@fortawesome/free-regular-svg-icons";
 //import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //<FontAwesomeIcon icon="fa-regular fa-arrow-right-from-arc" />
@@ -14,8 +15,8 @@ export function AdminProfile() {
             <section>
                 <nav >
                     <ul className='navAdmin'>
-                        <li><a className='menuAdmin' href="#">Products</a></li>
-                        <li><a className='menuAdmin' href="#">Users</a></li>
+                        <li> <Link  className='menuAdmin' to={`products/admin`}>Products</Link></li>
+                        <li> <Link  className='menuAdmin' to={`users/admin`}>Users</Link></li>
                     </ul>
                 </nav>
                 <article className='feedAdmin'>
