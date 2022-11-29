@@ -1,5 +1,5 @@
 
- const requestHTTPLogin =  async (email, password) => {
+const requestHTTPLogin = async (email, password) => {
     return fetch('http://localhost:8080/login', {
         method: "POST",
         headers: {
@@ -9,8 +9,8 @@
             'email': email,
             'password': password,
         })
-    }) .then(res => res.json())
-       .then(res => res)
+    }).then(res => res.json())
+        .then(res => res)
 
 }
 
@@ -22,9 +22,9 @@ const requestHTTPGetProductsAdmin = async (token) => {
             "Content-type": "application/json",
             "authorization": "Bearer" + token
         },
-        })
+    })
         .then(res => console.log(res))
 
 }
 
-export { requestHTTPLogin, requestHTTPGetProductsAdmin}
+export { requestHTTPLogin, requestHTTPGetProductsAdmin }
