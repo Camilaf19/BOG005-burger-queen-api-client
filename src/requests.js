@@ -15,15 +15,14 @@ const requestHTTPLogin = async (email, password) => {
 }
 
 const requestHTTPGetProductsAdmin = async (token) => {
-    console.log(token)
     return fetch('http://localhost:8080/products', {
         method: "GET",
         headers: {
-            "Content-type": "application/json",
-            "authorization": "Bearer" + token
+            "authorization": "Bearer " + token,
+            "Content-type": "application/json"
         },
-    })
-        .then(res => console.log(res))
+    }).then(res => res.json())
+        .then(res => res)
 
 }
 

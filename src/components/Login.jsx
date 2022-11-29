@@ -20,7 +20,7 @@ export function LoginView() {
         } else if ("accessToken" in responseRequestLogin) {
             navigate("profile/admin");
             const token = responseRequestLogin.accessToken;
-            window.localStorage.setItem("loginToken", token);
+            localStorage.setItem("loginToken", token);
         }
     }
 
