@@ -1,8 +1,6 @@
 import '../styles.css'
-import { Link } from "react-router-dom";
+import { Link, Outlet} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-//import { TableProducts} from '../TableProductsAdmin';
-
 
 
 function AdminProfile() {
@@ -19,12 +17,14 @@ function AdminProfile() {
             <section>
                 <nav >
                     <ul className='navAdmin'>
-                        <li> <Link to="/profile/admin/products" /* getProduct={<GetProductosAdmin />} */ className='menuAdmin'>Products</Link></li>
-                        <li> <Link className='menuAdmin'>Users</Link></li>
+                        <li>
+                             <Link to="/products"  className='menuAdmin'>Products</Link>
+                             </li>
+                        <li> <Link to="/users" className='menuAdmin'>Users</Link></li>
                     </ul>
                 </nav>
+                <Outlet />
                 <article className='feedAdmin'>
-               {/*  <TableProducts products={getProductosAdmin}></TableProducts> */}
                     <button className='buttonNewProduct'>Add new product + </button>
                 </article>
                 <button className='buttonSaveAll'>Save</button>

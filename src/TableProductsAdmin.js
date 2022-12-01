@@ -8,11 +8,9 @@ export const TableProducts = () => {
 
   useEffect(() => {
     requestHTTPGetProductsAdmin(tokenAccess).then((res) => {
-      console.log(res)
       setProducts(res)
     })
   }, [])
-
 
   return (
     <div>

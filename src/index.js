@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AdminProfile  } from './components/AdminProfile';
 import { TableProducts} from './TableProductsAdmin';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { TableUsers } from './TableUsersAdmin';
+
 
 
 
@@ -13,12 +15,14 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
         <Routes>
-                <Route path="/" element={<LoginView />} />
-                <Route path="profile/admin" element={<AdminProfile />}/>
-                <Route path="profile/admin/products" element={<TableProducts/>}/>
-             
+
+                <Route path="/" element={<LoginView />}>
+                <Route path="profile/admin" index element={<AdminProfile/>}/>
+                <Route path="/products" element={<TableProducts/>}/>
+                <Route path="/users" element={<TableUsers/>}/>
+                </Route>
         </Routes>
-    </BrowserRouter>,
+    </BrowserRouter>
 
 );
 

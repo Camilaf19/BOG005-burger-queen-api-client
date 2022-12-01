@@ -26,4 +26,16 @@ const requestHTTPGetProductsAdmin = async (token) => {
 
 }
 
-export { requestHTTPLogin, requestHTTPGetProductsAdmin }
+const requestHTTPGetUsersAdmin = async (token) => {
+    return fetch('http://localhost:8080/users', {
+        method: "GET",
+        headers: {
+            "authorization": "Bearer " + token,
+            "Content-type": "application/json"
+        },
+    }).then(res => res.json())
+        .then(res => res)
+
+}
+
+export { requestHTTPLogin, requestHTTPGetProductsAdmin, requestHTTPGetUsersAdmin }

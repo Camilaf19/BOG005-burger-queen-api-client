@@ -1,15 +1,16 @@
 import '../styles.css'
 import React, { useState } from 'react';
 import { requestHTTPLogin } from '../requests';
-import { useNavigate } from "react-router-dom";
+//import { useNavigate } from "react-router-dom";
 import ModalWrongUser from "../Modals.js"
+import { AdminProfile  } from './AdminProfile';
 
 export function LoginView() {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const [show, setShow] = useState(false);
 
-    const navigate = useNavigate();
+    //const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -18,9 +19,9 @@ export function LoginView() {
         if (responseRequestLogin === error) {
             setShow(true);
         } else if ("accessToken" in responseRequestLogin) {
-            navigate("profile/admin");
             const token = responseRequestLogin.accessToken;
             localStorage.setItem("loginToken", token);
+            return <AdminProfile/>
         }
     }
 
