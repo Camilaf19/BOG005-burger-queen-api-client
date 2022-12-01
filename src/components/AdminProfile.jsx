@@ -1,12 +1,26 @@
 import '../styles.css'
-import { Link, Outlet} from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+// import { Navigation } from "./Navigation"
+import { TableProducts } from '../TableProductsAdmin'
+import { TableUsers } from '../TableUsersAdmin'
+import { Link } from "react-router-dom";
+import React, { useState } from 'react';
 
 function AdminProfile() {
     const navigate = useNavigate();
     const handleBack = () => navigate("/")
-    
+
+    const [clickUsers, setClickUsers] = useState(false);
+    const [clickProducts, setClickProducts] = useState(true);
+
+    const handleNavUsers = () => {
+        setClickUsers(true);
+    };
+
+    const handleNavProducts = () => {
+        setClickProducts(true);
+    };
+
 
     return (
         <main className='backgroundAdmin'>
@@ -15,18 +29,20 @@ function AdminProfile() {
                 <button onClick={handleBack}>Back</button>
             </header>
             <section>
-                <nav >
+                <nav>
                     <ul className='navAdmin'>
                         <li>
-                             <Link to="/products"  className='menuAdmin'>Products</Link>
-                             </li>
-                        <li> <Link to="/users" className='menuAdmin'>Users</Link></li>
+                            <Link className='menuAdmin' onClick={handleNavProducts}>Products</Link>
+                        </li>
+                        <li> <Link className='menuAdmin' onClick={handleNavUsers}>Users</Link></li>
                     </ul>
-                </nav>
-                <Outlet />
+                </nav >
                 <article className='feedAdmin'>
+                    {clickUsers ? <TableUsers /> : undefined}
+                    {clickProducts ? <TableProducts /> : undefined}
                     <button className='buttonNewProduct'>Add new product + </button>
                 </article>
+
                 <button className='buttonSaveAll'>Save</button>
             </section>
         </main>
