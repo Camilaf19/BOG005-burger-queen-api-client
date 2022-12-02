@@ -15,10 +15,12 @@ function AdminProfile() {
 
     const handleNavUsers = () => {
         setClickUsers(true);
+        setClickProducts(false);
     };
 
     const handleNavProducts = () => {
         setClickProducts(true);
+        setClickUsers(false);
     };
 
 
@@ -40,9 +42,7 @@ function AdminProfile() {
                 <article className='feedAdmin'>
                     {clickUsers ? <TableUsers /> : undefined}
                     {clickProducts ? <TableProducts /> : undefined}
-                    <button className='buttonNewProduct'>Add new product + </button>
                 </article>
-
                 <button className='buttonSaveAll'>Save</button>
             </section>
         </main>

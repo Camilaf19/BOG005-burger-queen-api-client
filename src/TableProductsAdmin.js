@@ -15,17 +15,22 @@ export const TableProducts = () => {
   return (
     <div>
       <table>
-        <tbody>
-          {products.map((product, index) =>
+      <tbody>
+        <tr>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Price</th>
+        </tr>
+        {products.map((product, index) =>
             <tr key={index}>
+              <td>{product.image}</td>
               <td>{product.name}</td>
-              <td>{product.name}</td>
-              <td>{product.name}</td>
+              <td>{product.price}</td>
             </tr>
-          )}
-        </tbody>
+        )}
+ </tbody>
       </table>
-
+      <button className='buttonNewProduct'>Add new product + </button>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 
-const requestHTTPLogin = async (email, password) => {
+const requestHTTPLogin = ({email, password}) => {
     return fetch('http://localhost:8080/login', {
         method: "POST",
         headers: {
@@ -14,7 +14,7 @@ const requestHTTPLogin = async (email, password) => {
 
 }
 
-const requestHTTPGetProductsAdmin = async (token) => {
+const requestHTTPGetProductsAdmin =  (token) => {
     return fetch('http://localhost:8080/products', {
         method: "GET",
         headers: {
@@ -26,7 +26,7 @@ const requestHTTPGetProductsAdmin = async (token) => {
 
 }
 
-const requestHTTPGetUsersAdmin = async (token) => {
+const requestHTTPGetUsersAdmin = (token) => {
     return fetch('http://localhost:8080/users', {
         method: "GET",
         headers: {
@@ -38,4 +38,21 @@ const requestHTTPGetUsersAdmin = async (token) => {
 
 }
 
-export { requestHTTPLogin, requestHTTPGetProductsAdmin, requestHTTPGetUsersAdmin }
+const requestHTTPNewUser = ({email, password, role}) => {
+    return fetch('http://localhost:8080/users', {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+            'email': email,
+            'password': password,
+            'role': role,
+
+        })
+    }).then(res => res.json())
+        .then(res => res)
+
+}
+
+export { requestHTTPLogin, requestHTTPGetProductsAdmin, requestHTTPGetUsersAdmin, requestHTTPNewUser }
