@@ -34,6 +34,7 @@ export const TableUsers = () => {
                 </tbody>
             </table>
             <ModalCreateUser/>
+            
         </div>
     )
 }

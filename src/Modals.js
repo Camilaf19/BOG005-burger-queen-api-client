@@ -54,7 +54,7 @@ function ModalCreateUser() {
 
   return (
     <>
-      <button className='buttonNewUser' onClick={handleShow}>Add new user + </button>
+      <button  className='buttonNewProduct' onClick={handleShow}>Add new user + </button>
 
       <Modal
         show={show}

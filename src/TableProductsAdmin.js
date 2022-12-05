@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { requestHTTPGetProductsAdmin } from './requests';
+import { requestHTTPGetProducts } from './requests';
+import Table from 'react-bootstrap/Table';
 const tokenAccess = localStorage.getItem('loginToken');
 
 export const TableProducts = () => {
@@ -7,14 +8,14 @@ export const TableProducts = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    requestHTTPGetProductsAdmin(tokenAccess).then((res) => {
+    requestHTTPGetProducts(tokenAccess).then((res) => {
       setProducts(res)
     })
   }, [])
 
   return (
-    <div>
-      <table>
+    <section>
+    <Table striped>
       <tbody>
         <tr>
           <th>Image</th>
@@ -25,12 +26,13 @@ export const TableProducts = () => {
             <tr key={index}>
               <td>{product.image}</td>
               <td>{product.name}</td>
-              <td>{product.price}</td>
+              <td>${product.price}</td>
             </tr>
         )}
+         
  </tbody>
-      </table>
-      <button className='buttonNewProduct'>Add new product + </button>
-    </div>
+    </Table>
+    <button className='buttonNewProduct'>Add new product + </button>
+    </section>
   )
 }

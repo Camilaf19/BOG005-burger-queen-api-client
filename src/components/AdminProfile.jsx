@@ -28,7 +28,7 @@ function AdminProfile() {
         <main className='backgroundAdmin'>
             <header className='headerApp'>
                 <h1 className='titleApp'>BURGER QUEEN</h1>
-                <button onClick={handleBack}>Back</button>
+                <button onClick={handleBack}>Log Out</button>
             </header>
             <section>
                 <nav>
