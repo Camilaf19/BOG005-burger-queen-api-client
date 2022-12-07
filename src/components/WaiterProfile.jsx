@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import {  requestHTTPGetProducts } from '../requests';
 import { CardsProductsWaiter } from "../CardsProductosWaiter";
+
 import { useNavigate } from "react-router-dom";
 import '../styles.css'
 const tokenAccess = localStorage.getItem('loginToken');
@@ -43,9 +44,7 @@ export const WaiterProfile = () => {
                 )}
             </section>
             <section>
-           {/*  {products.map((product, index) =>
-                    <ItemProducts key={index}  id={product.id} image={product.image} name={product.name} price={product.price} type={product.type} />
-                )} */}
+        {/*     <Cart/> */}
         </section>
  </main >
 )

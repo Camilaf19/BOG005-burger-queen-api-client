@@ -1,7 +1,7 @@
 import '../styles.css'
 import React, { useState } from 'react';
 import { requestHTTPLogin } from '../requests';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Outlet} from "react-router-dom";
 import { ModalWrongUser } from "../Modals.js"
 // import { AdminProfile } from './AdminProfile';
 
@@ -23,17 +23,20 @@ export function LoginView() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+       
         requestHTTPLogin(dataLogin).then((res) => {
-            if (res.user.role === 'admin') {
+            console.log({res, dataLogin})
+        
+           if ( res.user && res.user.role === 'admin') {
                 const token = res.accessToken;
                 localStorage.setItem("loginToken", token);
                 navigate('profile/admin')
             }
-            else if (res.user.role === 'waiter') {
+            else if ( res.user && res.user.role === 'waiter') {
                 const token = res.accessToken;
                 localStorage.setItem("loginToken", token);
                 navigate('profile/waiter')
-            } else {
+            }   else {
                 setShow(true);
             }
         })
@@ -56,6 +59,7 @@ return (
                 <ModalWrongUser show={show} setShow={setShow} />
             </form>
         </section>
+        <Outlet />
     </main >
 )
 };

@@ -1,25 +1,24 @@
-/* import { requestHTTPGetOnlyProduct } from "./requests"
-const ItemProducts = (props) => {
+import Table from 'react-bootstrap/Table';
+
+export const Cart = ({order}) => {
     
-    }
     return (
-        <table>
+        <Table striped>
             <tbody>
                 <tr>
                     <th>Products</th>
                     <th>Total</th>
                 </tr>
                 <tr>
-                    <td>Aqui va el prpducto que va a agregar</td>
-                    <td>el precio</td>
+                    <td>{order.name}</td>
+                    <td>${order.price}</td>
                 </tr>
                 <tr>
                     <td>el precio total totalismo</td>
                     <td>el precio total en numbers</td>
                 </tr>
             </tbody>
-        </table>
+            </Table>
     )
 }
 
-export { ItemProducts } */

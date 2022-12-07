@@ -1,24 +1,29 @@
 import Card from 'react-bootstrap/Card';
 import { requestHTTPGetOnlyProduct } from './requests';
-import { useState } from 'react';
+import { useState,  /*  useEffect   */ } from 'react';
+import { Cart } from './Cart';
+
 const tokenAccess = localStorage.getItem('loginToken');
 
 
 export const CardsProductsWaiter = (props) => {
-  const [order, setOrder] = useState([])
+  const [productSelect, setProductSelect] = useState([])
+  const [cart, setCart] = useState([])
 
   const addProductInOrder = () => {
     requestHTTPGetOnlyProduct(tokenAccess, props.id).then((res) => {
-      const productExists = order.find((item) => item.id === props.id)
-      console.log(productExists)
-      console.log(res)
-    
-        setOrder(res)
-        console.log(order)
-      })
-   
-    }
-  
+      setProductSelect(res)
+     
+    })
+   /*  const productSelect = productSelect.find((item) => item.id === props.id) */
+   setCart(productSelect)
+  }
+  console.log({productSelect, cart})
+/*  useEffect(() => {
+    addProductInOrder()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [])   */
+/* {qty: 1, product: } */
   return (
     <>
       <Card border="warning" style={{ width: '18rem' }}>
@@ -31,26 +36,10 @@ export const CardsProductsWaiter = (props) => {
       </Card>
       <br />
       {/* //carrito? */}
-      <table>
-        <tbody>
-          <tr>
-            <th>Products</th>
-            <th>Total</th>
-          </tr>
-          <tr>
-            <td>aqui deberia ser la orden</td>
-            <td>el precio</td>
-          </tr>
-          <tr>
-            <td>el precio total totalismo</td>
-            <td>el precio total en numbers</td>
-          </tr>
-        </tbody>
-      </table>
-
+      <>
+      <Cart order={productSelect}/>
+      </>
     </>
 
-
   )
-
 }
