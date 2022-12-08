@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  requestHTTPGetProducts } from '../requests';
+import { requestHTTPGetProducts } from '../requests';
 import { CardsProductsWaiter } from "../CardsProductosWaiter";
 
 import { useNavigate } from "react-router-dom";
@@ -12,25 +12,31 @@ export const WaiterProfile = () => {
     const navigate = useNavigate();
     const handleBack = () => navigate("/")
     const [products, setProducts] = useState([]);
- /*    const [orderList, setOrderList] = useState([]); */
+    /*    const [orderList, setOrderList] = useState([]); */
 
- const getProductsMenu = () => { 
- requestHTTPGetProducts(tokenAccess).then((res) => {
-    setProducts(res.map((product) => {
-        return {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            type: product.type,
-        }
-    }))
-})}
+    const getProductsMenu = () => {
+        requestHTTPGetProducts(tokenAccess).then((res) => {
+            setProducts(res.map((product) => {
+                return {
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    image: product.image,
+                    type: product.type,
+                }
+            }))
+        })
+    }
     useEffect(() => {
         getProductsMenu()
     }, [])
 
 
+    const clickCart = (product) => {
+        // varias cosas
+        // ya se que tiene la orden
+        setOrderList()
+    }
 
     return (
         <main className='backgroundWaiter'>
@@ -40,13 +46,13 @@ export const WaiterProfile = () => {
             </header>
             <section>
                 {products.map((product, index) =>
-                    <CardsProductsWaiter key={index} id={product.id} image={product.image} name={product.name} price={product.price} type={product.type} />
+                    <CardsProductsWaiter key={index} id={product.id} image={product.image} name={product.name} price={product.price} type={product.type} onclick={clickCard} product={product} />
                 )}
             </section>
             <section>
-        {/*     <Cart/> */}
-        </section>
- </main >
-)
+                {/*     <Cart Order/> */}
+            </section>
+        </main >
+    )
 
 }

@@ -13,17 +13,18 @@ export const CardsProductsWaiter = (props) => {
   const addProductInOrder = () => {
     requestHTTPGetOnlyProduct(tokenAccess, props.id).then((res) => {
       setProductSelect(res)
-     
+      setCart([...cart, res])
+
     })
-   /*  const productSelect = productSelect.find((item) => item.id === props.id) */
-   setCart(productSelect)
+    /*  const productSelect = productSelect.find((item) => item.id === props.id) */
+    setCart([...cart, props.product])
   }
-  console.log({productSelect, cart})
-/*  useEffect(() => {
-    addProductInOrder()
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-}, [])   */
-/* {qty: 1, product: } */
+  console.log({ productSelect, cart })
+  /*  useEffect(() => {
+      addProductInOrder()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])   */
+  /* {qty: 1, product: } */
   return (
     <>
       <Card border="warning" style={{ width: '18rem' }}>
@@ -37,7 +38,7 @@ export const CardsProductsWaiter = (props) => {
       <br />
       {/* //carrito? */}
       <>
-      <Cart order={productSelect}/>
+        <Cart order={productSelect} />
       </>
     </>
 
