@@ -8,14 +8,11 @@ export const TableUsers = () => {
 
     const [users, setUsers] = useState([]);
 
-  
-
     useEffect(() => {
         requestHTTPGetUsersAdmin(tokenAccess).then((res) => {
             setUsers(res)
         })
     }, [])
-
 
     return (
         <div>
@@ -33,8 +30,8 @@ export const TableUsers = () => {
                     )}
                 </tbody>
             </table>
-            <ModalCreateUser/>
-            
+            <ModalCreateUser />
+
         </div>
     )
 }
