@@ -16,21 +16,12 @@ export const WaiterProfile = () => {
   const [menu,    setMenu] = useState([]);
   const [productSelect, setProductSelect] = useState([])
 
- const getProductsMenu = () => { 
- requestHTTPGetProducts(tokenAccess).then((res) => {
-    setProducts(res.map((product) => {
-        return {
-            id: product.id,
-            name: product.name,
-            price: product.price,
-            image: product.image,
-            type: product.type,
-        }
-    }))
-})}
-    useEffect(() => {
-        getProductsMenu()
-    }, [])
+
+  useEffect(() => {
+    requestHTTPGetProducts(tokenAccess).then((res) => {
+      setProducts(res)
+    })
+  }, [])
 
   function handleChangeSelector(event) {
     const result = products.filter((product) => {
@@ -42,12 +33,6 @@ export const WaiterProfile = () => {
     setMenu(result)
   }
 
-
-    const clickCart = (product) => {
-        // varias cosas
-        // ya se que tiene la orden
-        setOrderList()
-    }
 
   return (
     <main className='backgroundWaiter'>
