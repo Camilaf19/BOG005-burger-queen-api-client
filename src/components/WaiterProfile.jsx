@@ -33,14 +33,31 @@ export const WaiterProfile = () => {
     setMenu(result)
   }
 
+  const addProductInOrder = (product) => {
+    const productRepeated = productSelect.find((item) => item.product.id === product.id)
+
+    if (productRepeated) {
+      const resultIncrease = productSelect.map(item => item.product.id === product.id
+        ? { ...item, qty: item.qty + 1 }
+        : item,
+      )
+
+      setProductSelect(resultIncrease)
+
+    } else {
+      setProductSelect([...productSelect, { qty: 1, product: product }])
+    }
+  }
+
+
 
   return (
     <main className='backgroundWaiter'>
       <header className='headerApp'>
         <h1 className='titleApp'>BURGER QUEEN</h1>
-        <button onClick={handleBack}>Log Out</button>
+        <button  className='buttonLogOut'onClick={handleBack}>Log Out</button>
       </header>
-      <Form className="select-menu">
+      <Form className="selectMenu">
         <Form.Select onChange={handleChangeSelector}>
           <option>Select a Menu</option>
           <option value="Desayuno">Breakfast</option>
@@ -50,15 +67,12 @@ export const WaiterProfile = () => {
       <section>
         {menu.map((product) =>
           <CardsProductsWaiter key={product.id} id={product.id} image={product.image} name={product.name}
-            price={product.price} type={product.type} product={product} setProductSelect={setProductSelect}
-            productSelect={productSelect} />
+            price={product.price} type={product.type} product={product} addProductInOrder={addProductInOrder} />
         )}
       </section>
       <section>
-        {productSelect.map((product, index) =>
-          <Cart key={index} index={index} product={product} setProductSelect={setProductSelect}
+          <Cart 
             productSelect={productSelect} />
-        )}
       </section>
     </main >
   )

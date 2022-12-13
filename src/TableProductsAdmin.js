@@ -15,16 +15,15 @@ export const TableProducts = () => {
 
   return (
     <section>
-    <Table striped>
+    <Table className="tableAdmin" striped>
       <tbody>
         <tr>
-          <th>Image</th>
+        {/*   <th>Image</th> */}
           <th>Product</th>
           <th>Price</th>
         </tr>
         {products.map((product, index) =>
             <tr key={index}>
-              <td>{product.image}</td>
               <td>{product.name}</td>
               <td>${product.price}</td>
             </tr>

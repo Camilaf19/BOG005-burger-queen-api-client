@@ -1,7 +1,7 @@
 import { requestHTTPGetUsersAdmin } from './requests';
 import React, { useEffect, useState } from "react";
 import { ModalCreateUser } from './Modals';
-
+import Table from 'react-bootstrap/Table';
 const tokenAccess = localStorage.getItem('loginToken');
 
 export const TableUsers = () => {
@@ -16,7 +16,7 @@ export const TableUsers = () => {
 
     return (
         <div>
-            <table>
+            <Table className="tableAdmin" striped>
                 <tbody>
                     <tr>
                         <th>Role</th>
@@ -29,7 +29,7 @@ export const TableUsers = () => {
                         </tr>
                     )}
                 </tbody>
-            </table>
+            </Table>
             <ModalCreateUser />
 
         </div>
