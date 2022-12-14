@@ -64,13 +64,14 @@ export const WaiterProfile = () => {
           <option value="Almuerzo">Lunch</option>
         </Form.Select>
       </Form>
-      <section>
+      <section className='cardsProducts'>
         {menu.map((product) =>
           <CardsProductsWaiter key={product.id} id={product.id} image={product.image} name={product.name}
             price={product.price} type={product.type} product={product} addProductInOrder={addProductInOrder} />
         )}
       </section>
-      <section>
+      <section className="cartList" >
+  
           <Cart 
             productSelect={productSelect} />
       </section>

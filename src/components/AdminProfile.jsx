@@ -43,7 +43,6 @@ function AdminProfile() {
                     {clickUsers ? <TableUsers /> : undefined}
                     {clickProducts ? <TableProducts /> : undefined}
                 </article>
-                <button className='buttonSaveAll'>Save</button>
             </section>
         </main>
     )

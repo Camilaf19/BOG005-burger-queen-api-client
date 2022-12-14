@@ -55,16 +55,24 @@ const requestHTTPNewUser = ({email, password, role}) => {
 
 }
 
-const requestHTTPGetOnlyProduct =  (token, id) => {
-    return fetch('http://localhost:8080/products/'+id, {
-        method: "GET",
+const requestHTTPNewProduct = ({image, name, price, type}, token) => {
+    return fetch('http://localhost:8080/products', {
+        method: "POST",
         headers: {
             "authorization": "Bearer " + token,
-            "Content-type": "application/json"
+            "Content-type": "application/json",
         },
+        body: JSON.stringify({
+            'image': image,
+            'name': name,
+            'price': price,
+            'type': type,
+
+        })
     }).then(res => res.json())
         .then(res => res)
 
 }
 
-export { requestHTTPLogin, requestHTTPGetProducts, requestHTTPGetUsersAdmin, requestHTTPNewUser, requestHTTPGetOnlyProduct }
+
+export { requestHTTPLogin, requestHTTPGetProducts, requestHTTPGetUsersAdmin, requestHTTPNewUser, requestHTTPNewProduct }

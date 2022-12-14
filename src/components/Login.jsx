@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { requestHTTPLogin } from '../requests';
 import { useNavigate, Outlet } from "react-router-dom";
 import { ModalWrongUser } from "../Modals.js"
-// import { AdminProfile } from './AdminProfile';
 
 export function LoginView() {
     const [show, setShow] = useState(false);
@@ -24,7 +23,6 @@ export function LoginView() {
         e.preventDefault();
 
         requestHTTPLogin(dataLogin).then((res) => {
-            console.log({ res, dataLogin })
 
             if (res.user && res.user.role === 'admin') {
                 const token = res.accessToken;

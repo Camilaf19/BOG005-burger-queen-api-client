@@ -16,7 +16,7 @@ export const TableUsers = () => {
 
     return (
         <div>
-            <Table className="tableAdmin" striped>
+            <Table className="tableAdmin">
                 <tbody>
                     <tr>
                         <th>Role</th>
@@ -31,7 +31,6 @@ export const TableUsers = () => {
                 </tbody>
             </Table>
             <ModalCreateUser />
-
         </div>
     )
 }
