@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { requestHTTPNewUser, requestHTTPNewProduct, requestHTTPDeleteProduct, requestHTTPDeleteUser} from './requests';
+import {
+  requestHTTPNewUser, requestHTTPNewProduct,
+  requestHTTPDeleteProduct, requestHTTPDeleteUser,
+  requestHTTPEditProduct
+} from './requests';
 
 function ModalWrongUser({ show, setShow }) {
 
@@ -27,7 +31,7 @@ function ModalWrongUser({ show, setShow }) {
   );
 }
 
-function ModalCreateUser( {setUpdateListUsers, updateListUsers}) {
+function ModalCreateUser({ setUpdateListUsers, updateListUsers }) {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -94,7 +98,7 @@ function ModalCreateUser( {setUpdateListUsers, updateListUsers}) {
   );
 }
 
-function ModalCreateProduct({setUpdateListProducts, updateListProducts}) {
+function ModalCreateProduct({ setUpdateListProducts, updateListProducts }) {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -206,7 +210,7 @@ function ModalDeleteProduct({ product, setUpdateListProducts, updateListProducts
   );
 }
 
-function ModalDeleteUser( { user, setUpdateListUsers, updateListUsers } ) {
+function ModalDeleteUser({ user, setUpdateListUsers, updateListUsers }) {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -217,7 +221,7 @@ function ModalDeleteUser( { user, setUpdateListUsers, updateListUsers } ) {
     const responseRequestDeleteUser = await requestHTTPDeleteUser(tokenAccess, user.id)
     console.log(responseRequestDeleteUser)
     setShow(false)
-    setUpdateListUsers(!updateListUsers) 
+    setUpdateListUsers(!updateListUsers)
   }
 
   return (
@@ -247,5 +251,80 @@ function ModalDeleteUser( { user, setUpdateListUsers, updateListUsers } ) {
   );
 }
 
+function ModalEditProduct({ product, setDataEditProduct, dataEditProduct, setUpdateListProducts, updateListProducts }) {
 
-export { ModalWrongUser, ModalCreateUser, ModalCreateProduct, ModalDeleteProduct, ModalDeleteUser } 
+  const tokenAccess = localStorage.getItem('loginToken');
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setDataEditProduct(product)
+    setShow(true);
+  }
+
+  const handleChange = ({ target }) => {
+    setDataEditProduct({
+      ...dataEditProduct,
+      [target.name]: target.value
+    })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   const responseRequestEditProduct = await requestHTTPEditProduct(dataEditProduct, tokenAccess, product.id )
+     console.log(responseRequestEditProduct) 
+      setShow(false)
+     setUpdateListProducts(!updateListProducts) 
+
+  }
+
+  return (
+    <>
+      <button className='buttonEditProduct' onClick={handleShow}>Edit</button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton={handleClose}>
+          <Modal.Title>Creating a new product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail" >
+              <Form.Label>Image:</Form.Label>
+              <Form.Control name="image" onChange={handleChange} placeholder="Enter URL" value={dataEditProduct.image} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Name:</Form.Label>
+              <Form.Control name="name" onChange={handleChange} placeholder="Name" value={dataEditProduct.name} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Price:</Form.Label>
+              <Form.Control name="price" onChange={handleChange} placeholder="$$$" value={dataEditProduct.price} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicRole">
+              <Form.Label>Type</Form.Label>
+              <select name="role" className='selectRoleNewUser' onChange={handleChange}>
+                <option value='Desayuno'>Breakfast</option>
+                <option value='Almuerzo'>Lunch</option>
+              </select>
+            </Form.Group>
+            <Button variant="secondary" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button className='buttonModalSubmitNewUser' variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
+
+export {
+  ModalWrongUser, ModalCreateUser, ModalCreateProduct,
+  ModalDeleteProduct, ModalDeleteUser, ModalEditProduct
+} 

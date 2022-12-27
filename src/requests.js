@@ -100,8 +100,28 @@ const requestHTTPDeleteUser = (token, id) => {
 
 }
 
+const requestHTTPEditProduct = ({ image, name, price, type }, token, id) => {
+    return fetch('http://localhost:8080/products/'+id, {
+        method: "PATCH",
+        headers: {
+            "authorization": "Bearer " + token,
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+            'image': image,
+            'name': name,
+            'price': price,
+            'type': type,
+
+        })
+    }).then(res => res.json())
+        .then(res => res)
+
+}
+
 
 export {
     requestHTTPLogin, requestHTTPGetProducts, requestHTTPGetUsersAdmin,
-    requestHTTPNewUser, requestHTTPNewProduct, requestHTTPDeleteProduct, requestHTTPDeleteUser
+    requestHTTPNewUser, requestHTTPNewProduct, requestHTTPDeleteProduct, requestHTTPDeleteUser,
+    requestHTTPEditProduct
 }
