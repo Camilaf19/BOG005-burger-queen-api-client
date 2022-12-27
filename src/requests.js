@@ -1,5 +1,5 @@
 
-const requestHTTPLogin = ({email, password}) => {
+const requestHTTPLogin = ({ email, password }) => {
     return fetch('http://localhost:8080/login', {
         method: 'POST',
         headers: {
@@ -14,7 +14,7 @@ const requestHTTPLogin = ({email, password}) => {
 
 }
 
-const requestHTTPGetProducts =  (token) => {
+const requestHTTPGetProducts = (token) => {
     return fetch('http://localhost:8080/products', {
         method: "GET",
         headers: {
@@ -38,7 +38,7 @@ const requestHTTPGetUsersAdmin = (token) => {
 
 }
 
-const requestHTTPNewUser = ({email, password, role}) => {
+const requestHTTPNewUser = ({ email, password, role }) => {
     return fetch('http://localhost:8080/users', {
         method: "POST",
         headers: {
@@ -55,7 +55,7 @@ const requestHTTPNewUser = ({email, password, role}) => {
 
 }
 
-const requestHTTPNewProduct = ({image, name, price, type}, token) => {
+const requestHTTPNewProduct = ({ image, name, price, type }, token) => {
     return fetch('http://localhost:8080/products', {
         method: "POST",
         headers: {
@@ -74,5 +74,34 @@ const requestHTTPNewProduct = ({image, name, price, type}, token) => {
 
 }
 
+const requestHTTPDeleteProduct = (token, id) => {
+    return fetch('http://localhost:8080/products/'+id, {
+        method: "DELETE",
+        headers: {
+            "authorization": "Bearer " + token,
+            "Content-type": "application/json",
+        }
+    })
+        .then(res => res.json())
+        .then(res => res)
 
-export { requestHTTPLogin, requestHTTPGetProducts, requestHTTPGetUsersAdmin, requestHTTPNewUser, requestHTTPNewProduct }
+}
+
+const requestHTTPDeleteUser = (token, id) => {
+    return fetch('http://localhost:8080/users/'+id, {
+        method: "DELETE",
+        headers: {
+            "authorization": "Bearer " + token,
+            "Content-type": "application/json",
+        }
+    })
+        .then(res => res.json())
+        .then(res => res)
+
+}
+
+
+export {
+    requestHTTPLogin, requestHTTPGetProducts, requestHTTPGetUsersAdmin,
+    requestHTTPNewUser, requestHTTPNewProduct, requestHTTPDeleteProduct, requestHTTPDeleteUser
+}

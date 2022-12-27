@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { requestHTTPNewUser, requestHTTPNewProduct } from './requests';
+import { requestHTTPNewUser, requestHTTPNewProduct, requestHTTPDeleteProduct, requestHTTPDeleteUser} from './requests';
 
 function ModalWrongUser({ show, setShow }) {
 
@@ -27,7 +27,7 @@ function ModalWrongUser({ show, setShow }) {
   );
 }
 
-function ModalCreateUser() {
+function ModalCreateUser( {setUpdateListUsers, updateListUsers}) {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -46,6 +46,7 @@ function ModalCreateUser() {
     const responseRequestNewUser = await requestHTTPNewUser(dataUser, tokenAccess)
     console.log(responseRequestNewUser)
     setShow(false)
+    setUpdateListUsers(!updateListUsers)
   }
 
   return (
@@ -93,12 +94,13 @@ function ModalCreateUser() {
   );
 }
 
-function ModalCreateProduct() {
+function ModalCreateProduct({setUpdateListProducts, updateListProducts}) {
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [dataProduct, setdataProduct] = useState({ image: '', name: '', price: '', type:'' });
+  const [dataProduct, setdataProduct] = useState({ image: '', name: '', price: '', type: '' });
+  const tokenAccess = localStorage.getItem('loginToken');
 
   const handleChange = ({ target }) => {
     setdataProduct({
@@ -109,9 +111,10 @@ function ModalCreateProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const responseRequestNewProduct = await requestHTTPNewProduct(dataProduct)
+    const responseRequestNewProduct = await requestHTTPNewProduct(dataProduct, tokenAccess)
     console.log(responseRequestNewProduct)
     setShow(false)
+    setUpdateListProducts(!updateListProducts)
   }
 
   return (
@@ -144,7 +147,6 @@ function ModalCreateProduct() {
             <Form.Group className="mb-3" controlId="formBasicRole">
               <Form.Label>Type</Form.Label>
               <select name="role" className='selectRoleNewUser' onChange={handleChange}>
-                <option value=''>Select an option</option>
                 <option value='Desayuno'>Breakfast</option>
                 <option value='Almuerzo'>Lunch</option>
               </select>
@@ -161,4 +163,89 @@ function ModalCreateProduct() {
     </>
   );
 }
-export { ModalWrongUser, ModalCreateUser, ModalCreateProduct } 
+
+
+function ModalDeleteProduct({ product, setUpdateListProducts, updateListProducts }) {
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const tokenAccess = localStorage.getItem('loginToken');
+
+  const handleDelete = async () => {
+    const responseRequestDeleteProduct = await requestHTTPDeleteProduct(tokenAccess, product.id)
+    console.log(responseRequestDeleteProduct)
+    setShow(false)
+    setUpdateListProducts(!updateListProducts)
+  }
+
+  return (
+    <>
+      <button className='buttonDeleteProduct' onClick={handleShow}>Delete</button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+
+        <Modal.Header closeButton={handleClose}>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Are you sure you want delete this?</p>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button className='buttonModalSubmitNewUser' variant="primary" onClick={handleDelete} >
+            Yes
+          </Button>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
+
+function ModalDeleteUser( { user, setUpdateListUsers, updateListUsers } ) {
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const tokenAccess = localStorage.getItem('loginToken');
+
+  const handleDelete = async () => {
+    const responseRequestDeleteUser = await requestHTTPDeleteUser(tokenAccess, user.id)
+    console.log(responseRequestDeleteUser)
+    setShow(false)
+    setUpdateListUsers(!updateListUsers) 
+  }
+
+  return (
+    <>
+      <button className='buttonDeleteProduct' onClick={handleShow}>Delete</button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+
+        <Modal.Header closeButton={handleClose}>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Are you sure you want delete this?</p>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button className='buttonModalSubmitNewUser' variant="primary" onClick={handleDelete} >
+            Yes
+          </Button>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
+
+
+export { ModalWrongUser, ModalCreateUser, ModalCreateProduct, ModalDeleteProduct, ModalDeleteUser } 
