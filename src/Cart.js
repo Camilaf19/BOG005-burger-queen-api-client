@@ -1,13 +1,14 @@
-import { ListGroup,/*  Button  */} from "react-bootstrap"
-/* import { useEffect, useState } from "react" */
-export const Cart = ({productSelect}) => {
+import { ListGroup,  Button } from "react-bootstrap"
 
-  return productSelect.map((orderItem) => 
+export const Cart = ({orderList, deleteProductInOrder}) => {
+
+  return orderList.map((orderItem) => 
  (
-        <ListGroup  horizontal key={orderItem.product.id}>
+        <ListGroup horizontal key={orderItem.product.id}>
       <ListGroup.Item className="name">{orderItem.product.name}</ListGroup.Item>
-      <ListGroup.Item>{/* <Button className='select-btn' >-</Button> */}{orderItem.qty}{/* <Button className='select-btn'>+</Button> */}</ListGroup.Item>
+      <ListGroup.Item>{orderItem.qty}</ListGroup.Item>
       <ListGroup.Item className='price'>${orderItem.product.price * orderItem.qty}</ListGroup.Item>
+      <ListGroup.Item className='delete'><Button variant="warning" className='deletebtn' onClick={() => deleteProductInOrder(orderItem)} >Delete</Button></ListGroup.Item>
     </ListGroup>
            
     ))

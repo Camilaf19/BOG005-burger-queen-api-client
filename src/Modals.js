@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import {
   requestHTTPNewUser, requestHTTPNewProduct,
   requestHTTPDeleteProduct, requestHTTPDeleteUser,
-  requestHTTPEditProduct
+  requestHTTPEditProduct, requestHTTPEditUser
 } from './requests';
 
 function ModalWrongUser({ show, setShow }) {
@@ -85,7 +85,7 @@ function ModalCreateUser({ setUpdateListUsers, updateListUsers }) {
                 <option value='chef'>Chef</option>
               </select>
             </Form.Group>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="danger" onClick={handleClose}>
               Cancel
             </Button>
             <Button className='buttonModalSubmitNewUser' variant="primary" type="submit">
@@ -150,12 +150,14 @@ function ModalCreateProduct({ setUpdateListProducts, updateListProducts }) {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicRole">
               <Form.Label>Type</Form.Label>
-              <select name="role" className='selectRoleNewUser' onChange={handleChange}>
+              <select name="type" className='selectRoleNewUser' onChange={handleChange}>
+              <option value=''>Select an option</option>
                 <option value='Desayuno'>Breakfast</option>
                 <option value='Almuerzo'>Lunch</option>
               </select>
             </Form.Group>
-            <Button variant="secondary" onClick={handleClose}>
+          
+            <Button variant="danger" onClick={handleClose}>
               Cancel
             </Button>
             <Button className='buttonModalSubmitNewUser' variant="primary" type="submit">
@@ -198,7 +200,7 @@ function ModalDeleteProduct({ product, setUpdateListProducts, updateListProducts
         </Modal.Header>
         <Modal.Body>
           <p>Are you sure you want delete this?</p>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="danger" onClick={handleClose}>
             Cancel
           </Button>
           <Button className='buttonModalSubmitNewUser' variant="primary" onClick={handleDelete} >
@@ -239,7 +241,7 @@ function ModalDeleteUser({ user, setUpdateListUsers, updateListUsers }) {
         </Modal.Header>
         <Modal.Body>
           <p>Are you sure you want delete this?</p>
-          <Button variant="secondary" onClick={handleClose}>
+          <Button variant="danger" onClick={handleClose}>
             Cancel
           </Button>
           <Button className='buttonModalSubmitNewUser' variant="primary" onClick={handleDelete} >
@@ -288,7 +290,7 @@ function ModalEditProduct({ product, setDataEditProduct, dataEditProduct, setUpd
         keyboard={false}
       >
         <Modal.Header closeButton={handleClose}>
-          <Modal.Title>Creating a new product</Modal.Title>
+          <Modal.Title>Editing a product</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleSubmit}>
@@ -306,12 +308,13 @@ function ModalEditProduct({ product, setDataEditProduct, dataEditProduct, setUpd
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicRole">
               <Form.Label>Type</Form.Label>
-              <select name="role" className='selectRoleNewUser' onChange={handleChange}>
+              <select name="type" className='selectRoleNewUser' onChange={handleChange}>
+              <option value=''>Select an option</option>
                 <option value='Desayuno'>Breakfast</option>
                 <option value='Almuerzo'>Lunch</option>
               </select>
             </Form.Group>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="danger" onClick={handleClose}>
               Cancel
             </Button>
             <Button className='buttonModalSubmitNewUser' variant="primary" type="submit">
@@ -324,7 +327,78 @@ function ModalEditProduct({ product, setDataEditProduct, dataEditProduct, setUpd
   );
 }
 
+function ModalEditUser({ user, setDataEditUser, dataEditUser, setUpdateListUsers, updateListUsers }) {
+
+  const tokenAccess = localStorage.getItem('loginToken');
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => {
+    setDataEditUser(user)
+    setShow(true);
+  }
+
+  const handleChange = ({ target }) => {
+    setDataEditUser({
+      ...dataEditUser,
+      [target.name]: target.value
+    })
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+   const responseRequestEditUser = await requestHTTPEditUser(dataEditUser, tokenAccess, user.id )
+     console.log(responseRequestEditUser) 
+      setShow(false)
+     setUpdateListUsers(!updateListUsers) 
+
+  }
+
+  return (
+    <>
+      <button className='buttonEditProduct' onClick={handleShow}>Edit</button>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton={handleClose}>
+          <Modal.Title>Editing a product</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group className="mb-3" controlId="formBasicEmail" >
+              <Form.Label>Email address</Form.Label>
+              <Form.Control type="email" name="email" onChange={handleChange} placeholder="Enter email" value={dataEditUser.email} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" name="password" onChange={handleChange} placeholder="Password" value={dataEditUser.password} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicRole">
+              <Form.Label>Role</Form.Label>
+              <select name="role" className='selectRoleNewUser' onChange={handleChange}>
+                <option value=''>Select an option</option>
+                <option value='admin'>Admin</option>
+                <option value='waiter'>Waiter</option>
+                <option value='chef'>Chef</option>
+              </select>
+            </Form.Group>
+            <Button variant="danger" onClick={handleClose}>
+              Cancel
+            </Button>
+            <Button className='buttonModalSubmitNewUser' variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </>
+  );
+}
 export {
   ModalWrongUser, ModalCreateUser, ModalCreateProduct,
-  ModalDeleteProduct, ModalDeleteUser, ModalEditProduct
+  ModalDeleteProduct, ModalDeleteUser, ModalEditProduct, 
+  ModalEditUser
 } 
