@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import Form from "react-bootstrap/Form";
-import { requestHTTPGetProducts } from '../requests';
+import { requestHTTPGetProducts, requestHTTPNewOrder } from '../requests';
 import { CardsProductsWaiter } from "../CardsProductosWaiter";
 import { Cart } from '../Cart';
 import { useNavigate } from "react-router-dom";
 import { ListGroup, Button } from "react-bootstrap"
 import '../styles.css'
 const tokenAccess = localStorage.getItem('loginToken');
+
 
 
 export const WaiterProfile = () => {
@@ -17,7 +18,23 @@ export const WaiterProfile = () => {
   const [menu, setMenu] = useState([]);
   const [orderList, setOrderList] = useState([])
   const [customerName, setCustomerName] = useState('')
+  const userId = localStorage.getItem('userId');
 
+  const dataOrder = {
+    userId: userId,
+    client: customerName,
+    products: orderList,
+    status: 'pending',
+    dataEntry: new Date().toLocaleString('sv-SE'),
+
+}
+  const handleSubmitOrder = (e) => {
+    e.preventDefault();
+    requestHTTPNewOrder(dataOrder,tokenAccess).then((res) => {
+    console.log(res)
+    })
+
+  }
 
   useEffect(() => {
     requestHTTPGetProducts(tokenAccess).then((res) => {
@@ -96,12 +113,12 @@ export const WaiterProfile = () => {
       </section>
       <section className="cartList" >
         <h2 className="orderTitle">Order:</h2>
-        <Form /* onSubmit={handleSubmitNameCostumer} */>
+        <Form onSubmit={handleSubmitOrder} >
           <Form.Group>
             <Form.Control
               className="nameInput"
               type='text'
-              name='name'
+              name='customerName'
               placeholder="Customer name"
               value={customerName}
               onChange={handleChangeNameCustomer}

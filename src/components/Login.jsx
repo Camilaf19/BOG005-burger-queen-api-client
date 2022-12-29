@@ -31,7 +31,9 @@ export function LoginView() {
             }
             else if (res.user && res.user.role === 'waiter') {
                 const token = res.accessToken;
+                const userID = res.user.id;
                 localStorage.setItem("loginToken", token);
+                localStorage.setItem("userId", userID);
                 navigate('profile/waiter')
             } else {
                 setShow(true);

@@ -137,8 +137,22 @@ const requestHTTPEditUser = ({ email, password, role }, token, id) => {
 
 }
 
+const requestHTTPNewOrder = ( dataOrder, token) => {
+    return fetch('http://localhost:8080/orders', {
+        method: "POST",
+        headers: {
+            "authorization": "Bearer " + token,
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify(dataOrder)
+        
+    }).then(res => res.json())
+        .then(res => res)
+
+}
+
 export {
     requestHTTPLogin, requestHTTPGetProducts, requestHTTPGetUsersAdmin,
     requestHTTPNewUser, requestHTTPNewProduct, requestHTTPDeleteProduct, requestHTTPDeleteUser,
-    requestHTTPEditProduct, requestHTTPEditUser
+    requestHTTPEditProduct, requestHTTPEditUser, requestHTTPNewOrder
 }
