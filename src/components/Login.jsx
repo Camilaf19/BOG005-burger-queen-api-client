@@ -35,6 +35,12 @@ export function LoginView() {
                 localStorage.setItem("loginToken", token);
                 localStorage.setItem("userId", userID);
                 navigate('profile/waiter')
+                
+            } else if (res.user && res.user.role === 'chef') {
+                const token = res.accessToken;        
+                localStorage.setItem("loginToken", token);
+                navigate('profile/chef')
+                
             } else {
                 setShow(true);
             }

@@ -8,8 +8,6 @@ import { ListGroup, Button } from "react-bootstrap"
 import '../styles.css'
 const tokenAccess = localStorage.getItem('loginToken');
 
-
-
 export const WaiterProfile = () => {
 
   const navigate = useNavigate();
@@ -18,6 +16,7 @@ export const WaiterProfile = () => {
   const [menu, setMenu] = useState([]);
   const [orderList, setOrderList] = useState([])
   const [customerName, setCustomerName] = useState('')
+/*   const [ordersKitchen, setOrdersKitchen] = useState([]) */
   const userId = localStorage.getItem('userId');
 
   const dataOrder = {
@@ -28,14 +27,9 @@ export const WaiterProfile = () => {
     dataEntry: new Date().toLocaleString('sv-SE'),
 
 }
-  const handleSubmitOrder = (e) => {
-    e.preventDefault();
-    requestHTTPNewOrder(dataOrder,tokenAccess).then((res) => {
-    console.log(res)
-    })
-
-  }
-
+  const handleSubmitOrder =  async () => {
+  await requestHTTPNewOrder(dataOrder, tokenAccess)
+}
   useEffect(() => {
     requestHTTPGetProducts(tokenAccess).then((res) => {
       setProducts(res)
@@ -138,6 +132,7 @@ export const WaiterProfile = () => {
             <Button variant="danger"/*onClick= {handleDeleteOrder} */>Delete order</Button>
           </article>
         </Form>
+    
       </section>
     </main>
   )

@@ -151,8 +151,20 @@ const requestHTTPNewOrder = ( dataOrder, token) => {
 
 }
 
+const requestHTTPGetOrders = (token) => {
+    return fetch('http://localhost:8080/orders?_page=1&_limit=10', {
+        method: "GET",
+        headers: {
+            "authorization": "Bearer " + token,
+            "Content-type": "application/json",
+        }
+        
+    }).then(res => res.json())
+        .then(res => res)
+
+}
 export {
     requestHTTPLogin, requestHTTPGetProducts, requestHTTPGetUsersAdmin,
     requestHTTPNewUser, requestHTTPNewProduct, requestHTTPDeleteProduct, requestHTTPDeleteUser,
-    requestHTTPEditProduct, requestHTTPEditUser, requestHTTPNewOrder
+    requestHTTPEditProduct, requestHTTPEditUser, requestHTTPNewOrder, requestHTTPGetOrders
 }
