@@ -1,18 +1,32 @@
-import Card from 'react-bootstrap/Card';
+
+import { ListGroup,  Card } from "react-bootstrap"
 
 
-export const CardsOrdersKitchen = ({order}) => {
+export const CardsOrdersKitchen = ({ order }) => {
+
   return (
     <>
-     {/*  <Card border="warning" style={{ width: '12rem', height: '10rem', display: 'grid'}}>
-        <Card.Header style={{ fontSize: '13px'}}>{order.id}</Card.Header>
+      <Card border="warning" style={{ width: '12rem', height: '10rem', display: 'grid' }}>
+        <Card.Header style={{ fontSize: '13px' }}>{order.client}</Card.Header>
         <Card.Body>
-          <Card.Title style={{ fontSize: '17px'}}>{order.client}</Card.Title>
-          <Card.Text style={{ fontSize: '13px', margin: '4px'}} >${order}</Card.Text>
-         
+          <Card.Title style={{ fontSize: '17px' }}>
+          </Card.Title>
+
+          {order.products.map((element, index) => {
+            return ( 
+              <ListGroup key={index} horizontal>
+              <ListGroup.Item >{element.product.name}</ListGroup.Item>
+              <ListGroup.Item>{element.qty} </ListGroup.Item>
+            </ListGroup >
+        
+            )
+          }
+
+          )}
+
         </Card.Body>
       </Card>
-      <br /> */}
+      <br />
     </>
   )
 }

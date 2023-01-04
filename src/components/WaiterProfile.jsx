@@ -27,7 +27,8 @@ export const WaiterProfile = () => {
     dataEntry: new Date().toLocaleString('sv-SE'),
 
 }
-  const handleSubmitOrder =  async () => {
+  const handleSubmitOrder =  async (e) => {
+    e.preventDefault();
   await requestHTTPNewOrder(dataOrder, tokenAccess)
 }
   useEffect(() => {

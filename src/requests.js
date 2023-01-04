@@ -152,7 +152,7 @@ const requestHTTPNewOrder = ( dataOrder, token) => {
 }
 
 const requestHTTPGetOrders = (token) => {
-    return fetch('http://localhost:8080/orders?_page=1&_limit=10', {
+    return fetch('http://localhost:8080/orders', {
         method: "GET",
         headers: {
             "authorization": "Bearer " + token,
