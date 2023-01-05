@@ -100,6 +100,7 @@ export const WaiterProfile = () => {
           <option value="Almuerzo">Lunch</option>
         </Form.Select>
       </Form>
+      <section className="containerTakeOrders"> 
       <section className='cardsProducts'>
         {menu.map((product) =>
           <CardsProductsWaiter key={product.id} id={product.id} image={product.image} name={product.name}
@@ -107,8 +108,8 @@ export const WaiterProfile = () => {
         )}
       </section>
       <section className="cartList" >
-        <h2 className="orderTitle">Order:</h2>
-        <Form onSubmit={handleSubmitOrder} >
+        <h2 className="orderTitle">Ticket:</h2>
+        <Form onSubmit={handleSubmitOrder}  className='formOrder'>
           <Form.Group>
             <Form.Control
               className="nameInput"
@@ -120,20 +121,23 @@ export const WaiterProfile = () => {
               required
             />
           </Form.Group>
+          <section className="containerProductsTicket">
           <Cart
             orderList={orderList} deleteProductInOrder={deleteProductInOrder} />
-          <Form.Group className="total">
+          <Form.Group className="totalContainer">
             <ListGroup horizontal >
-              <ListGroup.Item >Total:</ListGroup.Item>
-              <ListGroup.Item>${calcuteTotalOrder()} </ListGroup.Item>
+              <ListGroup.Item style={{padding:'6px 16px', borderRadius:'4px', fontWeight:'bold'}}>Total:</ListGroup.Item>
+              <ListGroup.Item style={{padding:'6px', borderRadius:'4px', width:'90%', textAlign:'right', fontWeight:'bold'}}>${calcuteTotalOrder()} </ListGroup.Item>
             </ListGroup >
           </Form.Group>
-          <article className="order-buttons">
+          </section>
+          <article>
             <Button variant="success" type='submit'>Send to kitchen</Button>
             <Button variant="danger"/*onClick= {handleDeleteOrder} */>Delete order</Button>
           </article>
         </Form>
     
+      </section>
       </section>
     </main>
   )

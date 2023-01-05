@@ -119,7 +119,7 @@
     margin: 0.8em;
     margin-top: 2em;
     margin-left: 5.5em;
-  
+
 
 }
 
@@ -155,7 +155,7 @@
     margin: 0.8em auto;
     display: block;
     font-size: 13px;
-   
+
 }
 
 
@@ -170,7 +170,7 @@
 }
 
 .buttonLogOut:hover {
-    color: rgba(0, 0, 0, 0.705) ;
+    color: rgba(0, 0, 0, 0.705);
 }
 
 .tableAdmin {
@@ -178,10 +178,12 @@
 }
 
 .selectMenu {
-width: 50%;
-margin: auto;
-margin-top: 2em;
-border-color: #F1C40F;
+    width: 50%;
+    margin: auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+    border-color: #F1C40F;
+   
 }
 
 
@@ -190,20 +192,27 @@ border-color: #F1C40F;
     display: block;
 }
 
-.buttonModalSubmitNewUser{
+.buttonModalSubmitNewUser {
     margin-left: 19em;
-  
+
+}
+
+.containerTakeOrders {
+    display: flex;
+    /* justify-content: center; */
 }
 
 .cardsProducts {
     margin: 1em;
-    width: 40%;
-    display: inline-block;
+    width: 50%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+
 }
 
 .cartList {
     width: 40%;
-    display: inline-block;
     margin-top: 0;
 }
 
@@ -212,6 +221,36 @@ border-color: #F1C40F;
 }
 
 .backgroundWaiter {
-  
+
     min-height: 100vh;
 }
+
+.orderTitle {
+    margin: 0.4em 0em;
+    font-size: 20px;
+}
+
+.formOrder {
+    display: flex;
+    flex-direction: column;
+    height: 25em;
+}
+
+.nameInput {
+    padding: 4px 12px;
+    margin: 2px 0px;
+}
+
+.containerProductsTicket{
+    height: 100%;
+    position: relative;
+ border: #0000001c solid 1px;
+ border-radius: 4px;
+}
+
+.totalContainer {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+}
+
