@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import { requestHTTPGetProducts, requestHTTPNewOrder } from '../requests';
 import { CardsProductsWaiter } from "../CardsProductosWaiter";
 import { Cart } from '../Cart';
+import Swal from 'sweetalert2'
 import { useNavigate } from "react-router-dom";
 import { ListGroup, Button } from "react-bootstrap"
 import '../styles.css'
@@ -16,7 +17,6 @@ export const WaiterProfile = () => {
   const [menu, setMenu] = useState([]);
   const [orderList, setOrderList] = useState([])
   const [customerName, setCustomerName] = useState('')
-/*   const [ordersKitchen, setOrdersKitchen] = useState([]) */
   const userId = localStorage.getItem('userId');
 
   const dataOrder = {
@@ -25,12 +25,33 @@ export const WaiterProfile = () => {
     products: orderList,
     status: 'pending',
     dataEntry: new Date().toLocaleString('sv-SE'),
+  }
 
-}
-  const handleSubmitOrder =  async (e) => {
+  const handleSubmitOrder =  (e) => {
     e.preventDefault();
-  await requestHTTPNewOrder(dataOrder, tokenAccess)
-}
+    requestHTTPNewOrder(dataOrder, tokenAccess).then((res) => {
+      console.log(res)
+      Swal.fire(
+         'Good job!',
+        'Your order has been created!',
+        'success'
+      )
+      setOrderList([])
+      setCustomerName('')
+
+    }).catch(() => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Something went wrong! You order has not been created.',
+        })
+
+        setOrderList([])
+        setCustomerName('')
+      })
+    
+
+  }
   useEffect(() => {
     requestHTTPGetProducts(tokenAccess).then((res) => {
       setProducts(res)
@@ -75,7 +96,7 @@ export const WaiterProfile = () => {
     }
   }
 
- const calcuteTotalOrder = () => {
+  const calcuteTotalOrder = () => {
     if (orderList.length !== 0) {
       const productsPrices = orderList.map((item) => item.product.price * item.qty)
       const totalPrice = productsPrices.reduce((a, b) => a + b)
@@ -87,12 +108,18 @@ export const WaiterProfile = () => {
     setCustomerName(event.target.value)
   }
 
+  const handleDeleteOrder = () => {
+    setOrderList([])
+    setCustomerName('')
+  }
+
   return (
+    <>
+    <header className='headerApp'>
+    <h1 className='titleApp'>BURGER QUEEN</h1>
+    <button className='buttonLogOut' onClick={handleBack}>Log Out</button>
+  </header>
     <main className='backgroundWaiter'>
-      <header className='headerApp'>
-        <h1 className='titleApp'>BURGER QUEEN</h1>
-        <button className='buttonLogOut' onClick={handleBack}>Log Out</button>
-      </header>
       <Form className="selectMenu">
         <Form.Select onChange={handleChangeSelector}>
           <option>Select a Menu</option>
@@ -100,46 +127,46 @@ export const WaiterProfile = () => {
           <option value="Almuerzo">Lunch</option>
         </Form.Select>
       </Form>
-      <section className="containerTakeOrders"> 
-      <section className='cardsProducts'>
-        {menu.map((product) =>
-          <CardsProductsWaiter key={product.id} id={product.id} image={product.image} name={product.name}
-            price={product.price} type={product.type} product={product} addProductInOrder={addProductInOrder} />
-        )}
-      </section>
-      <section className="cartList" >
-        <h2 className="orderTitle">Ticket:</h2>
-        <Form onSubmit={handleSubmitOrder}  className='formOrder'>
-          <Form.Group>
-            <Form.Control
-              className="nameInput"
-              type='text'
-              name='customerName'
-              placeholder="Customer name"
-              value={customerName}
-              onChange={handleChangeNameCustomer}
-              required
-            />
-          </Form.Group>
-          <section className="containerProductsTicket">
-          <Cart
-            orderList={orderList} deleteProductInOrder={deleteProductInOrder} />
-          <Form.Group className="totalContainer">
-            <ListGroup horizontal >
-              <ListGroup.Item style={{padding:'6px 16px', borderRadius:'4px', fontWeight:'bold'}}>Total:</ListGroup.Item>
-              <ListGroup.Item style={{padding:'6px', borderRadius:'4px', width:'90%', textAlign:'right', fontWeight:'bold'}}>${calcuteTotalOrder()} </ListGroup.Item>
-            </ListGroup >
-          </Form.Group>
-          </section>
-          <article>
-            <Button variant="success" type='submit'>Send to kitchen</Button>
-            <Button variant="danger"/*onClick= {handleDeleteOrder} */>Delete order</Button>
-          </article>
-        </Form>
-    
-      </section>
+      <section className="containerTakeOrders">
+        <section className='cardsProducts'>
+          {menu.map((product) =>
+            <CardsProductsWaiter key={product.id} id={product.id} image={product.image} name={product.name}
+              price={product.price} type={product.type} product={product} addProductInOrder={addProductInOrder} />
+          )}
+        </section>
+        <section className="cartList" >
+          <h2 className="orderTitle">Ticket:</h2>
+          <Form onSubmit={handleSubmitOrder} className='formOrder'>
+            <Form.Group>
+              <Form.Control
+                className="nameInput"
+                type='text'
+                name='customerName'
+                placeholder="Customer name"
+                value={customerName}
+                onChange={handleChangeNameCustomer}
+                required
+              />
+            </Form.Group>
+            <section className="containerProductsTicket">
+              <Cart
+                orderList={orderList} deleteProductInOrder={deleteProductInOrder} />
+              <Form.Group className="totalContainer">
+                <ListGroup horizontal >
+                  <ListGroup.Item style={{ padding: '6px 16px', borderRadius: '4px', fontWeight: 'bold' }}>Total:</ListGroup.Item>
+                  <ListGroup.Item style={{ padding: '6px', borderRadius: '4px', width: '90%', textAlign: 'right', fontWeight: 'bold' }}>${calcuteTotalOrder()} </ListGroup.Item>
+                </ListGroup >
+              </Form.Group>
+            </section>
+            <article className='buttonsTicket'>
+              <Button variant="success" type='submit'>Send to kitchen</Button>
+              <Button variant="danger" onClick={handleDeleteOrder}>Clean order</Button>
+            </article>
+          </Form>
+        </section>
       </section>
     </main>
+    </>
   )
 
 }

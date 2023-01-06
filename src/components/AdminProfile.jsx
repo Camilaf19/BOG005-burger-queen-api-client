@@ -25,11 +25,12 @@ function AdminProfile() {
 
 
     return (
+        <>
+        <header className='headerApp'>
+        <h1 className='titleApp'>BURGER QUEEN</h1>
+        <button  className='buttonLogOut' onClick={handleBack}>Log Out</button>
+    </header>
         <main className='backgroundAdmin'>
-            <header className='headerApp'>
-                <h1 className='titleApp'>BURGER QUEEN</h1>
-                <button  className='buttonLogOut' onClick={handleBack}>Log Out</button>
-            </header>
             <section>
                 <nav>
                     <ul className='navAdmin'>
@@ -45,6 +46,7 @@ function AdminProfile() {
                 </article>
             </section>
         </main>
+        </>
     )
 }
 

@@ -163,8 +163,23 @@ const requestHTTPGetOrders = (token) => {
         .then(res => res)
 
 }
+
+const requestHTTPEditStatusOrder = (dataEditOrder, idOrder, token) => {
+    return fetch('http://localhost:8080/orders/'+idOrder, {
+        method: "PATCH",
+        headers: {
+            "authorization": "Bearer " + token,
+            "Content-type": "application/json",
+        },
+        body: JSON.stringify(dataEditOrder)
+
+    }).then(res => res.json())
+        .then(res => res)
+
+}
 export {
     requestHTTPLogin, requestHTTPGetProducts, requestHTTPGetUsersAdmin,
     requestHTTPNewUser, requestHTTPNewProduct, requestHTTPDeleteProduct, requestHTTPDeleteUser,
-    requestHTTPEditProduct, requestHTTPEditUser, requestHTTPNewOrder, requestHTTPGetOrders
+    requestHTTPEditProduct, requestHTTPEditUser, requestHTTPNewOrder, requestHTTPGetOrders,
+    requestHTTPEditStatusOrder
 }

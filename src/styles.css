@@ -183,7 +183,7 @@
     margin-top: 2em;
     margin-bottom: 2em;
     border-color: #F1C40F;
-   
+
 }
 
 
@@ -199,7 +199,6 @@
 
 .containerTakeOrders {
     display: flex;
-    /* justify-content: center; */
 }
 
 .cardsProducts {
@@ -241,11 +240,11 @@
     margin: 2px 0px;
 }
 
-.containerProductsTicket{
+.containerProductsTicket {
     height: 100%;
     position: relative;
- border: #0000001c solid 1px;
- border-radius: 4px;
+    border: #0000001c solid 1px;
+    border-radius: 4px;
 }
 
 .totalContainer {
@@ -254,3 +253,19 @@
     bottom: 0px;
 }
 
+.buttonsTicket {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.5em;
+}
+
+.pendingTitle {
+    font-size: 1em;
+    padding: 1em;
+    margin: auto;
+    text-align: center;
+}
+.containerPendingOrders {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}

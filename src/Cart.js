@@ -4,7 +4,7 @@ export const Cart = ({orderList, deleteProductInOrder}) => {
 
   return orderList.map((orderItem) => 
  (
-        <ListGroup style={{height:'2.6em', borderRadius:'4px'}} horizontal key={orderItem.product.id}>
+        <ListGroup style={{height:'3em', borderRadius:'4px'}} horizontal key={orderItem.product.id}>
       <ListGroup.Item style={{width:'46%', fontSize:'0.9em', padding:'4px', textAlign:'center'}}>{orderItem.product.name}</ListGroup.Item>
       <ListGroup.Item>{orderItem.qty}</ListGroup.Item>
       <ListGroup.Item style={{width:'22%', textAlign:'center'}}>${orderItem.product.price * orderItem.qty}</ListGroup.Item>
