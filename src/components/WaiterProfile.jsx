@@ -50,7 +50,6 @@ export const WaiterProfile = () => {
         setCustomerName('')
       })
     
-
   }
   useEffect(() => {
     requestHTTPGetProducts(tokenAccess).then((res) => {

@@ -1,8 +1,13 @@
+import { ListGroup, Card } from "react-bootstrap"
 
-import { ListGroup, Card, Button } from "react-bootstrap"
-
-export const CardsOrdersKitchen = ({ order, addOrderReady }) => {
-
+export const CardsOrdersReady = ({ order }) => {
+ 
+    const calcuteTimePreparation  = () => {
+        const dateEntry = new Date(order.dataEntry)
+        const dateProcessed= new Date(order.dateProcessed)
+        let minutes = (dateProcessed.getTime() - dateEntry.getTime()) / 1000 / 60
+        return Math.round(minutes)
+    }
   
   return (
     <article className="containerCard">
@@ -26,10 +31,12 @@ export const CardsOrdersKitchen = ({ order, addOrderReady }) => {
           </ListGroup >
           <ListGroup style={{ margin: '5px', border: 'none' }} horizontal>
             <ListGroup.Item style={{ border: 'none', width: '12em', padding: '0px', fontSize: '0.9em', textAlign: 'center' }}>
-            Date of Entry: {order.dataEntry} </ListGroup.Item>
+              Date of Entry: {order.dataEntry} </ListGroup.Item>
           </ListGroup >
-          <Button style={{ fontSize: '12px', width: '8em', padding: '0px', margin: '1.1em' }}
-            onClick={() => addOrderReady(order)}>Add order ready to serve</Button>
+          <ListGroup style={{ margin: '5px', border: 'none' }} horizontal>
+            <ListGroup.Item style={{ border: 'none', width: '12em', padding: '0px', fontSize: '0.9em', textAlign: 'center' }}>
+            Time taken to prepare the order: {calcuteTimePreparation()} minutes.</ListGroup.Item>
+          </ListGroup >
         </Card.Body>
       </Card>
       <br />

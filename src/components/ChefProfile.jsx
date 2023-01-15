@@ -3,12 +3,16 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { requestHTTPGetOrders } from "../requests";
 import { CardsOrdersKitchen } from "../CardsOrdersKitchen.js"
+import { CardsOrdersReady } from "../CardsOrdersReady";
 import { requestHTTPEditStatusOrder } from "../requests";
+import Form from "react-bootstrap/Form";
 
 export function ChefProfile() {
   const navigate = useNavigate();
   const handleBack = () => navigate("/")
   const [ordersKitchen, setOrdersKitchen] = useState([])
+  const [pendingOrders, setPendingOrders] = useState([])
+  const [readyOrders, setReadyOrders] = useState([])
   const tokenAccess = localStorage.getItem('loginToken');
 
   useEffect(() => {
@@ -18,12 +22,12 @@ export function ChefProfile() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const pendingOrders = ordersKitchen.filter((order) => {
-    if (order.status === "pending") {
-      return true
-    }
-    return false
-  })
+  const handleChangeSelector = (event) => {
+    const pendingFilter = ordersKitchen.filter((order) => event.target.value === order.status && order.status === 'pending')
+    setPendingOrders(pendingFilter)
+    const readyFilter = ordersKitchen.filter((order) => event.target.value === order.status && order.status === 'ready')
+    setReadyOrders(readyFilter)
+  }
 
   const addOrderReady = (order) => {
     const dataEditOrder = {
@@ -32,25 +36,35 @@ export function ChefProfile() {
     }
     requestHTTPEditStatusOrder(dataEditOrder, order.id, tokenAccess).then((res) => {
       console.log(res)
-  })}
-  
-  if (pendingOrders.length !== 0) {
-    return (
-      <>
-        <header className='headerApp'>
-          <h1 className='titleApp'>BURGER QUEEN</h1>
-          <button className='buttonLogOut' onClick={handleBack}>Log Out</button>
-        </header>
-        <main className='backgroundWaiter'>
-          <section className="containerOrdersChef">
-            <h2 className="pendingTitle"> Pending Orders:</h2>
-            <section className="containerPendingOrders">
-              {pendingOrders.map((order, index) =>
-                <CardsOrdersKitchen key={index} order={order} addOrderReady={addOrderReady} />)}
-            </section>
-          </section>
-        </main>
-      </>
-    )
+    })
   }
+
+  return (
+    <>
+      <header className='headerApp'>
+        <h1 className='titleApp'>BURGER QUEEN</h1>
+        <button className='buttonLogOut' onClick={handleBack}>Log Out</button>
+      </header>
+      <main className='backgroundWaiter'>
+        <section className="containerOrdersChef">
+          <Form className="selectMenu">
+            <Form.Select onChange={handleChangeSelector}>
+              <option>Select the order type</option>
+              <option value='pending'>Pending Orders</option>
+              <option value='ready'>Ready Orders</option>
+            </Form.Select>
+          </Form>
+          <section className="containerOrders">
+            {pendingOrders.map((order, index) =>
+              <CardsOrdersKitchen key={index} order={order} addOrderReady={addOrderReady} />)}
+          </section>
+          <section className="containerOrders">
+            {readyOrders.map((order, index) =>
+              <CardsOrdersReady key={index} order={order} />)}
+          </section>
+        </section>
+      </main>
+    </>
+  )
+
 }

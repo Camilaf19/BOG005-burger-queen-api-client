@@ -265,7 +265,7 @@
     margin: auto;
     text-align: center;
 }
-.containerPendingOrders {
+.containerOrders {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
 }
