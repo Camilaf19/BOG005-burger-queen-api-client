@@ -158,6 +158,16 @@
 
 }
 
+.buttonOrdersWaiter {
+    border: none;
+    margin-left: 0.2em;
+    background-color: #FFCF08;
+    color: rgba(0, 0, 0, 0.705);
+    font-size: 18px;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
 
 .buttonLogOut {
     border: none;

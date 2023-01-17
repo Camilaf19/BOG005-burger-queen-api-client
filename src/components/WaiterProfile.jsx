@@ -13,6 +13,7 @@ export const WaiterProfile = () => {
 
   const navigate = useNavigate();
   const handleBack = () => navigate("/")
+  const handleOrders = () => navigate("order/ready")
   const [products, setProducts] = useState([]);
   const [menu, setMenu] = useState([]);
   const [orderList, setOrderList] = useState([])
@@ -116,7 +117,8 @@ export const WaiterProfile = () => {
     <>
     <header className='headerApp'>
     <h1 className='titleApp'>BURGER QUEEN</h1>
-    <button className='buttonLogOut' onClick={handleBack}>Log Out</button>
+    <button className='buttonOrdersWaiter' onClick={handleOrders}>Orders</button>
+    <button className='buttonLogOut'  onClick={handleBack}>Log Out</button>
   </header>
     <main className='backgroundWaiter'>
       <Form className="selectMenu">

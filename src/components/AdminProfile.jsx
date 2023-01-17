@@ -1,6 +1,5 @@
 import '../styles.css'
 import { useNavigate } from "react-router-dom";
-// import { Navigation } from "./Navigation"
 import { TableProducts } from '../TableProductsAdmin'
 import { TableUsers } from '../TableUsersAdmin'
 import { Link } from "react-router-dom";
