@@ -1,31 +1,42 @@
 import React, { useEffect, useState } from "react";
-import { requestHTTPGetProductsAdmin } from './requests';
+import { requestHTTPGetProducts } from './requests';
+import { ModalCreateProduct, ModalEditProduct, ModalDeleteProduct } from "./Modals";
+import Table from 'react-bootstrap/Table';
 const tokenAccess = localStorage.getItem('loginToken');
 
 export const TableProducts = () => {
 
   const [products, setProducts] = useState([]);
+  const [updateListProducts, setUpdateListProducts] = useState(false);
+  const [dataEditProduct, setDataEditProduct] = useState({});
 
   useEffect(() => {
-    requestHTTPGetProductsAdmin(tokenAccess).then((res) => {
+    requestHTTPGetProducts(tokenAccess).then((res) => {
       setProducts(res)
     })
-  }, [])
+  }, [updateListProducts])
+
 
   return (
-    <div>
-      <table>
+    <section>
+      <Table className="tableAdmin" >
         <tbody>
-          {products.map((product, index) =>
-            <tr key={index}>
+          {products.map((product) =>
+            <tr key={product.id}>
               <td>{product.name}</td>
-              <td>{product.name}</td>
-              <td>{product.name}</td>
+              <td>${product.price}</td>
+              <td>{product.type}</td>
+              <td><ModalEditProduct product={product} setUpdateListProducts={setUpdateListProducts}
+                updateListProducts={updateListProducts} setDataEditProduct={setDataEditProduct}
+                dataEditProduct={dataEditProduct} /></td>
+              <td><ModalDeleteProduct product={product} setUpdateListProducts={setUpdateListProducts}
+                updateListProducts={updateListProducts} /></td>
             </tr>
           )}
         </tbody>
-      </table>
-
-    </div>
+      </Table>
+      <ModalCreateProduct setUpdateListProducts={setUpdateListProducts}
+        updateListProducts={updateListProducts} />
+    </section>
   )
 }
