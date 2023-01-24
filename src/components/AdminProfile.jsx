@@ -8,7 +8,6 @@ import React, { useState } from 'react';
 function AdminProfile() {
     const navigate = useNavigate();
     const handleBack = () => navigate("/")
-
     const [clickUsers, setClickUsers] = useState(false);
     const [clickProducts, setClickProducts] = useState(true);
 

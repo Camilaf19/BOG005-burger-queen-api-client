@@ -4,16 +4,13 @@ import { requestHTTPGetProducts, requestHTTPNewOrder } from '../requests';
 import { CardsProductsWaiter } from "../CardsProductosWaiter";
 import { Cart } from '../Cart';
 import Swal from 'sweetalert2'
-import { useNavigate } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import { ListGroup, Button } from "react-bootstrap"
 import '../styles.css'
 const tokenAccess = localStorage.getItem('loginToken');
 
 export const WaiterProfile = () => {
 
-  const navigate = useNavigate();
-  const handleBack = () => navigate("/")
-  const handleOrders = () => navigate("order/ready")
   const [products, setProducts] = useState([]);
   const [menu, setMenu] = useState([]);
   const [orderList, setOrderList] = useState([])
@@ -117,8 +114,17 @@ export const WaiterProfile = () => {
     <>
     <header className='headerApp'>
     <h1 className='titleApp'>BURGER QUEEN</h1>
-    <button className='buttonOrdersWaiter' onClick={handleOrders}>Orders</button>
-    <button className='buttonLogOut'  onClick={handleBack}>Log Out</button>
+    <nav>
+      <ul>
+        <li>
+        <Link className='buttonOrdersWaiter'to="order/ready">Orders</Link>
+        </li>
+        <li>
+        <Link  className='buttonLogOut' to="/">Log Out</Link>
+        </li>
+      </ul>
+    </nav>
+    <Outlet/>
   </header>
     <main className='backgroundWaiter'>
       <Form className="selectMenu">

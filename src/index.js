@@ -13,11 +13,13 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <BrowserRouter>
         <Routes>
-            <Route path="/" element={<LoginView/>} />
+            <Route path="/" element={<LoginView />} />
             <Route path="profile/admin" element={<AdminProfile />} />
-            <Route path="profile/waiter/" element={<WaiterProfile/>}/>
-            <Route path="profile/waiter/order/ready" element={<OrdersReadyWaiter/>} />
-            <Route path="profile/chef" element={<ChefProfile/>} />
+            <Route path="profile/chef" element={<ChefProfile />} />
+        </Routes>
+        <Routes>
+            <Route path="/profile/waiter" index element={<WaiterProfile />} />
+            <Route path="/profile/waiter/order/ready" element={<OrdersReadyWaiter />} />
         </Routes>
     </BrowserRouter>
 

@@ -34,7 +34,7 @@ export function LoginView() {
                 const userID = res.user.id;
                 localStorage.setItem("loginToken", token);
                 localStorage.setItem("userId", userID);
-                navigate('profile/waiter/')
+                navigate('profile/waiter')
                 
             } else if (res.user && res.user.role === 'chef') {
                 const token = res.accessToken;        
@@ -66,4 +66,4 @@ export function LoginView() {
             <Outlet />
         </main >
     )
-};
+}

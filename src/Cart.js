@@ -11,6 +11,7 @@ export const Cart = ({orderList, deleteProductInOrder}) => {
       <ListGroup.Item style={{padding:'7px', width:'20%'}}><Button variant="warning" style={{ padding:'3px 5px', fontSize:'0.8em', }} onClick={() => deleteProductInOrder(orderItem)} >Delete</Button></ListGroup.Item>
     </ListGroup>
            
+          
     ))
     
 }
